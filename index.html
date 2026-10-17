@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DEAD ZONE 2026 | SRM MCET</title>
+
+    <meta name="description"
+          content="Enter DEAD ZONE 2026, the zombie apocalypse-themed non-technical event at SRM Madurai College for Engineering and Technology.">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;500;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        /* =========================================
+           GLOBAL STYLES
+        ========================================= */
+
+        :root {
+            --black: #050505;
+            --dark: #101010;
+            --red: #e50914;
+            --green: #a6ff00;
+            --white: #f5f5f5;
+            --grey: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================================
+           CREEPY ATMOSPHERE EFFECTS
+        ========================================= */
+
+        .atmosphere {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Moving fog */
+
+        .fog {
+            position: absolute;
+            left: -60%;
+            width: 220%;
+            height: 180px;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(170, 170, 170, 0.24),
+                    rgba(100, 100, 100, 0.08) 45%,
+                    transparent 72%
+                );
+
+            filter: blur(28px);
+            opacity: 0.65;
+        }
+
+        .fog-one {
+            bottom: 5%;
+            animation: fogMove 22s linear infinite alternate;
+        }
+
+        .fog-two {
+            bottom: 25%;
+            opacity: 0.35;
+            animation: fogMove 32s linear infinite alternate-reverse;
+        }
+
+        .fog-three {
+            bottom: 45%;
+            height: 120px;
+            opacity: 0.18;
+            animation: fogMove 40s linear infinite alternate;
+        }
+
+        @keyframes fogMove {
+            from {
+                transform: translateX(-12%) translateY(0);
+            }
+
+            to {
+                transform: translateX(12%) translateY(-35px);
+            }
+        }
+
+        /* Falling blood drops */
+
+        .blood-drop {
+            position: absolute;
+            top: -40px;
+
+            width: 9px;
+            height: 15px;
+
+            background: #e50914;
+            border-radius: 50% 50% 50% 0;
+
+            transform: rotate(-45deg);
+            opacity: 0;
+
+            box-shadow: 0 0 12px #e5091480;
+
+            animation: bloodFall linear infinite;
+        }
+
+        .drop-one {
+            left: 12%;
+            animation-duration: 13s;
+        }
+
+        .drop-two {
+            left: 31%;
+            animation-duration: 18s;
+            animation-delay: 4s;
+        }
+
+        .drop-three {
+            left: 57%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+
+        .drop-four {
+            left: 78%;
+            animation-duration: 19s;
+            animation-delay: 7s;
+        }
+
+        .drop-five {
+            left: 94%;
+            animation-duration: 16s;
+            animation-delay: 5s;
+        }
+
+        @keyframes bloodFall {
+            0% {
+                transform: translateY(-30px) rotate(-45deg);
+                opacity: 0;
+            }
+
+            12% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        /* Creepy glowing eyes */
+
+        .creepy-eyes {
+            position: absolute;
+            display: flex;
+            gap: 13px;
+            opacity: 0;
+            animation: eyesAppear 13s infinite;
+        }
+
+        .creepy-eyes span {
+            display: block;
+
+            width: 24px;
+            height: 11px;
+
+            background: #ff1010;
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 8px #ff0000,
+                0 0 20px #e50914;
+
+            animation: blink 5s infinite;
+        }
+
+        .eyes-left {
+            top: 32%;
+            left: 5%;
+            animation-delay: 1s;
+        }
+
+        .eyes-right {
+            top: 63%;
+            right: 6%;
+            animation-delay: 7s;
+        }
+
+        @keyframes eyesAppear {
+            0%, 12%, 78%, 100% {
+                opacity: 0;
+            }
+
+            20%, 65% {
+                opacity: 0.85;
+            }
+        }
+
+        @keyframes blink {
+            0%, 44%, 48%, 100% {
+                transform: scaleY(1);
+            }
+
+            46% {
+                transform: scaleY(0.12);
+            }
+        }
+
+        /* Moving zombie */
+
+        .zombie-walker {
+            position: absolute;
+            bottom: 0;
+            left: -110px;
+
+            font-size: 68px;
+            opacity: 0.75;
+
+            filter: grayscale(1) brightness(0.45);
+
+            animation: zombieWalk 32s linear infinite;
+        }
+
+        @keyframes zombieWalk {
+            0% {
+                left: -110px;
+                transform: scaleX(1);
+            }
+
+            48% {
+                left: calc(100% - 70px);
+                transform: scaleX(1);
+            }
+
+            50% {
+                left: calc(100% - 70px);
+                transform: scaleX(-1);
+            }
+
+            98% {
+                left: -90px;
+                transform: scaleX(-1);
+            }
+
+            100% {
+                left: -110px;
+                transform: scaleX(1);
+            }
+        }
+
+        /* =========================================
+           NAVIGATION BAR
+        ========================================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 20px 8%;
+
+            background: rgba(5, 5, 5, 0.96);
+            border-bottom: 1px solid #3a1111;
+
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-family: 'Creepster', cursive;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--red);
+            text-shadow: 0 0 15px #e5091470;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--green);
+        }
+
+        .nav-register {
+            padding: 12px 18px;
+            background: var(--red);
+            border: 1px solid var(--red);
+            color: white;
+        }
+
+        .nav-register:hover {
+            background: transparent;
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        /* =========================================
+           HERO SECTION
+        ========================================= */
+
+        .hero {
+            min-height: 90vh;
+            padding: 100px 8%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.68),
+                    rgba(0, 0, 0, 0.92)
+                ),
+                url('images/zombie-background.jpg') center/cover no-repeat;
+
+            background-color: #160607;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(229, 9, 20, 0.16),
+                    transparent 65%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+        }
+
+        .warning {
+            display: inline-block;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+
+            border: 1px solid var(--green);
+            color: var(--green);
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+
+            animation: warningPulse 2s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% {
+                box-shadow: 0 0 5px #a6ff0015;
+            }
+
+            50% {
+                box-shadow: 0 0 20px #a6ff0050;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: 5px;
+
+            color: var(--red);
+
+            text-shadow:
+                0 0 10px #e5091490,
+                0 0 35px #e5091460;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 3vw, 1.6rem);
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto 35px;
+
+            color: #cccccc;
+            font-size: 0.95rem;
+            line-height: 2;
+        }
+
+        /* Buttons */
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 28px;
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+
+            border: 1px solid;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+
+            box-shadow: 0 0 20px #e5091425;
+        }
+
+        .btn-primary:hover {
+            background: #a90009;
+            border-color: #a90009;
+
+            transform: translateY(-4px);
+            box-shadow: 0 0 25px #e5091470;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--green);
+            color: var(--black);
+            transform: translateY(-4px);
+        }
+
+        /* =========================================
+           EMERGENCY ALERT
+        ========================================= */
+
+        .emergency-alert {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+
+            z-index: 200;
+
+            padding: 13px 17px;
+
+            background: rgba(30, 0, 0, 0.96);
+            border: 1px solid var(--red);
+
+            color: #ff3030;
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+
+            box-shadow: 0 0 18px #e5091430;
+
+            animation: alertFlicker 3s infinite;
+        }
+
+        @keyframes alertFlicker {
+            0%, 18%, 22%, 62%, 64%, 100% {
+                opacity: 1;
+            }
+
+            20%, 63% {
+                opacity: 0.25;
+            }
+        }
+
+        /* =========================================
+           WARNING STRIP
+        ========================================= */
+
+        .warning-bar {
+            padding: 14px 0;
+            overflow: hidden;
+            white-space: nowrap;
+
+            background: var(--red);
+            color: white;
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .warning-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: warningScroll 28s linear infinite;
+        }
+
+        @keyframes warningScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* =========================================
+           GENERAL SECTIONS
+        ========================================= */
+
+        section:not(.hero) {
+            padding: 85px 8%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .small-title {
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Creepster', cursive;
+            font-weight: 400;
+            font-size: clamp(2.8rem, 6vw, 4.2rem);
+            color: var(--red);
+            letter-spacing: 2px;
+        }
+
+        .section-heading p {
+            max-width: 700px;
+            margin: 15px auto 0;
+
+            color: var(--grey);
+            font-size: 0.9rem;
+            line-height: 1.9;
+        }
+
+        /* =========================================
+           EVENT CARDS
+        ========================================= */
+
+        .events {
+            background: linear-gradient(180deg, #080808, #111111);
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .event-card {
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 30px 25px;
+
+            background: #121212;
+            border: 1px solid #292929;
+
+            transition: transform 0.35s, border-color 0.35s;
+        }
+
+        .event-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 4px;
+
+            background: var(--red);
+
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--green);
+            box-shadow: 0 12px 35px #a6ff0010;
+        }
+
+        .event-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .event-number {
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .event-icon {
+            font-size: 2.7rem;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover .event-icon {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        .event-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .event-card p {
+            color: var(--grey);
+            font-size: 0.84rem;
+            line-height: 1.9;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .event-link {
+            display: inline-block;
+            align-self: flex-start;
+
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--green);
+
+            transition: 0.3s;
+        }
+
+        .event-link:hover {
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        /* =========================================
+           REGISTRATION SECTION
+        ========================================= */
+
+        .registration {
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #e509141c,
+                    transparent 65%
+                ),
+                #090909;
+        }
+
+        .registration-box {
+            max-width: 850px;
+            margin: auto;
+            padding: 55px 30px;
+
+            background: #101010;
+            border: 1px solid #a6ff0060;
+
+            box-shadow: 0 0 40px #a6ff0008;
+        }
+
+        .registration-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .registration-box h2 {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(2.7rem, 6vw, 4rem);
+            font-weight: 400;
+            color: var(--red);
+            margin-bottom: 20px;
+        }
+
+        .registration-box p {
+            max-width: 650px;
+            margin: 0 auto 30px;
+
+            color: #cccccc;
+            font-size: 0.9rem;
+            line-height: 2;
+        }
+
+        .registration-note {
+            margin-top: 22px;
+            color: var(--green);
+            font-size: 0.75rem;
+        }
+
+        /* =========================================
+           ABOUT SECTION
+        ========================================= */
+
+        .about {
+            text-align: center;
+            background: #101010;
+        }
+
+        .about-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .about-content p {
+            color: #bbbbbb;
+            font-size: 0.9rem;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .college-name {
+            margin-top: 30px;
+
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            line-height: 2;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            padding: 35px 8%;
+            text-align: center;
+
+            background: #020202;
+            border-top: 1px solid #292929;
+        }
+
+        .footer-warning {
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        footer h3 {
+            font-family: 'Creepster', cursive;
+            font-size: 2.3rem;
+            font-weight: 400;
+            color: var(--red);
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            color: #777777;
+            font-size: 0.75rem;
+            line-height: 2;
+        }
+
+        .footer-home {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--green);
+            font-size: 0.75rem;
+        }
+
+        /* =========================================
+           RED HORROR FLASH
+        ========================================= */
+
+        .hero {
+            animation: horrorFlash 10s infinite;
+        }
+
+        @keyframes horrorFlash {
+            0%, 90%, 94%, 100% {
+                box-shadow: inset 0 0 0 transparent;
+            }
+
+            92% {
+                box-shadow: inset 0 0 100px rgba(229, 9, 20, 0.22);
+            }
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 1000px) {
+            header {
+                padding: 20px 5%;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            .event-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            section:not(.hero) {
+                padding: 75px 5%;
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 14px;
+            }
+
+            nav a {
+                font-size: 0.63rem;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 75px 6%;
+            }
+
+            .hero h1 {
+                letter-spacing: 2px;
+            }
+
+            .hero h2 {
+                letter-spacing: 2px;
+                line-height: 1.7;
+            }
+
+            .warning {
+                font-size: 0.62rem;
+                letter-spacing: 1px;
+                line-height: 1.8;
+            }
+
+            .hero p {
+                font-size: 0.85rem;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-card {
+                padding: 28px 22px;
+            }
+
+            .registration-box {
+                padding: 40px 20px;
+            }
+
+            .section-heading h2 {
+                line-height: 1.2;
+            }
+
+            .zombie-walker {
+                font-size: 45px;
+            }
+
+            .creepy-eyes span {
+                width: 15px;
+                height: 8px;
+            }
+
+            .fog {
+                height: 120px;
+            }
+
+            .emergency-alert {
+                right: 8px;
+                bottom: 8px;
+                padding: 9px 10px;
+                font-size: 0.55rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        /* Accessibility: respect reduced-motion preference */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .blood-drop,
+            .creepy-eyes {
+                display: none;
+            }
+
+            .zombie-walker {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         CREEPY ATMOSPHERE LAYER
+    ========================================= -->
+
+    <div class="atmosphere" aria-hidden="true">
+
+        <div class="fog fog-one"></div>
+        <div class="fog fog-two"></div>
+        <div class="fog fog-three"></div>
+
+        <div class="blood-drop drop-one"></div>
+        <div class="blood-drop drop-two"></div>
+        <div class="blood-drop drop-three"></div>
+        <div class="blood-drop drop-four"></div>
+        <div class="blood-drop drop-five"></div>
+
+        <div class="creepy-eyes eyes-left">
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="creepy-eyes eyes-right">
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="zombie-walker">🧟</div>
+
+    </div>
+
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================= -->
+
+    <header>
+
+        <a href="#home" class="logo">
+            DEAD <span>ZONE</span>
+        </a>
+
+        <nav>
+            <a href="#home">HOME</a>
+            <a href="#events">EVENTS</a>
+            <a href="#about">ABOUT</a>
+
+            <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdGTZKseF4BiMtuXjgL8UyYXDziPlpC6MIaNmJfIdKmBdaF7g/viewform?usp=preview"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="nav-register">
+                REGISTER
+            </a>
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO SECTION
+    ========================================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="warning">
+                ⚠ EMERGENCY BROADCAST — SURVIVORS WANTED ⚠
+            </div>
+
+            <h1>DEAD ZONE</h1>
+
+            <h2>THE APOCALYPSE BEGINS HERE</h2>
+
+            <p>
+                The world has fallen. The infected are approaching.
+                Your survival depends on your courage, intelligence,
+                creativity, and teamwork. Enter the danger zone,
+                face your fears, and prove that you can survive
+                the apocalypse.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#events" class="btn btn-secondary">
+                    EXPLORE MISSIONS
+                </a>
+
+                <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdGTZKseF4BiMtuXjgL8UyYXDziPlpC6MIaNmJfIdKmBdaF7g/viewform?usp=preview"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-primary">
+                    ☣ REGISTER NOW
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         WARNING STRIP
+    ========================================= -->
+
+    <div class="warning-bar">
+        <div class="warning-text">
+            ☣ OUTBREAK DETECTED ☣ ENTER AT YOUR OWN RISK ☣
+            TRUST NO SHADOW ☣ SURVIVAL IS NOT GUARANTEED ☣
+            DEAD ZONE 2026 — THE APOCALYPSE BEGINS HERE ☣
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         EVENTS SECTION
+    ========================================= -->
+
+    <section class="events" id="events">
+
+        <div class="section-heading">
+
+            <div class="small-title">
+                CHOOSE YOUR MISSION
+            </div>
+
+            <h2>ENTER THE DANGER ZONE</h2>
+
+            <p>
+                Five missions. One apocalypse. Every decision matters.
+                Explore the events, choose your challenge, and prepare
+                to enter the unknown.
+            </p>
+
+        </div>
+
+
+        <div class="event-grid">
+
+            <!-- EVENT 1: STORYTELLING -->
+
+            <article class="event-card">
+
+                <div class="event-number">MISSION 001</div>
+
+                <div class="event-icon">🕯️</div>
+
+                <h3>HAUNTED STORYTELLING</h3>
+
+                <p>
+                    Enter a world where every shadow hides a secret.
+                    Narrate your original zombie horror story and
+                    turn the audience's imagination into a nightmare.
+                </p>
+
+                <a href="storytelling.html" class="event-link">
+                    VIEW MISSION →
+                </a>
+
+            </article>
+
+
+            <!-- EVENT 2: ESCAPE ROOM -->
+
+            <article class="event-card">
+
+                <div class="event-number">MISSION 002</div>
+
+                <div class="event-icon">🔐</div>
+
+                <h3>ZOMBIE SURVIVAL ESCAPE ROOM</h3>
+
+                <p>
+                    Solve mysterious puzzles, uncover hidden clues,
+                    and escape the infected zone before time runs out.
+                </p>
+
+                <a href="escape-room.html" class="event-link">
+                    VIEW MISSION →
+                </a>
+
+            </article>
+
+
+            <!-- EVENT 3: SHORT FILM -->
+
+            <article class="event-card">
+
+                <div class="event-number">MISSION 003</div>
+
+                <div class="event-icon">🎬</div>
+
+                <h3>HORROR SHORT FILM CONTEST</h3>
+
+                <p>
+                    Bring your darkest nightmares to life through
+                    terrifying stories, suspense, and cinematic creativity.
+                </p>
+
+                <a href="short-film.html" class="event-link">
+                    VIEW MISSION →
+                </a>
+
+            </article>
+
+
+            <!-- EVENT 4: ZOMBIE AUCTION -->
+
+            <article class="event-card">
+
+                <div class="event-number">MISSION 004</div>
+
+                <div class="event-icon">💰</div>
+
+                <h3>ZOMBIE AUCTION</h3>
+
+                <p>
+                    Bid strategically, manage your survival resources,
+                    and collect the supplies needed to outlast
+                    the apocalypse.
+                </p>
+
+                <a href="zombie-auction.html" class="event-link">
+                    VIEW MISSION →
+                </a>
+
+            </article>
+
+
+            <!-- EVENT 5: QUARANTINE -->
+
+            <article class="event-card">
+
+                <div class="event-number">MISSION 005</div>
+
+                <div class="event-icon">☣️</div>
+
+                <h3>QUARANTINE SIMULATION</h3>
+
+                <p>
+                    Enter the quarantine zone, investigate the outbreak,
+                    and complete your mission before containment fails.
+                </p>
+
+                <a href="quarantine.html" class="event-link">
+                    VIEW MISSION →
+                </a>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         REGISTRATION SECTION
+    ========================================= -->
+
+    <section class="registration" id="register">
+
+        <div class="registration-box">
+
+            <div class="registration-icon">🧟</div>
+
+            <div class="small-title">
+                YOUR SURVIVAL STARTS NOW
+            </div>
+
+            <h2>JOIN THE APOCALYPSE</h2>
+
+            <p>
+                Think you have what it takes to survive DEAD ZONE 2026?
+                Complete the official registration form to join the mission.
+                Gather your courage, prepare your strategy, and get ready
+                to enter the danger zone.
+            </p>
+
+            <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdGTZKseF4BiMtuXjgL8UyYXDziPlpC6MIaNmJfIdKmBdaF7g/viewform?usp=preview"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary">
+                ☣ OPEN REGISTRATION FORM
+            </a>
+
+            <div class="registration-note">
+                ⚠ Complete and submit the form to register.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ABOUT SECTION
+    ========================================= -->
+
+    <section class="about" id="about">
+
+        <div class="section-heading">
+
+            <div class="small-title">
+                KNOW YOUR DESTINATION
+            </div>
+
+            <h2>WELCOME TO DEAD ZONE</h2>
+
+        </div>
+
+        <div class="about-content">
+
+            <p>
+                DEAD ZONE 2026 is a zombie-apocalypse-themed
+                non-technical event experience designed to bring
+                creativity, suspense, teamwork, and survival challenges
+                together in one unforgettable atmosphere.
+            </p>
+
+            <p>
+                From escaping infected rooms to creating horror films,
+                every mission challenges your imagination, courage,
+                and ability to think under pressure.
+            </p>
+
+            <p>
+                Enter the zone, take on the challenges, and become
+                part of the apocalypse.
+            </p>
+
+            <div class="college-name">
+                SRM MADURAI COLLEGE FOR ENGINEERING AND TECHNOLOGY
+                <br>
+                SRM MCET
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+
+    <footer>
+
+        <div class="footer-warning">
+            ☣ END OF TRANSMISSION ☣
+        </div>
+
+        <h3>DEAD ZONE 2026</h3>
+
+        <p>
+            THE APOCALYPSE BEGINS HERE.
+            <br>
+            SRM Madurai College for Engineering and Technology
+            <br>
+            © 2026 DEAD ZONE. All rights reserved.
+        </p>
+
+        <a href="#home" class="footer-home">
+            ↑ BACK TO TOP
+        </a>
+
+    </footer>
+
+
+    <!-- =========================================
+         FLICKERING EMERGENCY ALERT
+    ========================================= -->
+
+    <div class="emergency-alert" role="status">
+        ☣ OUTBREAK DETECTED ☣
+    </div>
+
+
+</body>
+</html>
